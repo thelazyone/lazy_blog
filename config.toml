@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://test.thelazyforger.com/jack/"
+base_url = "https://thelazyone.github.io/lazy_blog/"
 
 title = "Jack's blog"
 description = "A blog about lorem ipsum dolor sit amet"
