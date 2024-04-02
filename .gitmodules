@@ -1,3 +1,6 @@
 [submodule "themes/bacter-particle-zola"]
 	path = themes/bacter-particle-zola
 	url = https://github.com/thelazyone/bacter-particle-zola/
+[submodule "themes/simple-dev-blog-zola-starter"]
+	path = themes/simple-dev-blog-zola-starter
+	url = https://github.com/bennetthardwick/simple-dev-blog-zola-starter
