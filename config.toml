@@ -1,0 +1,49 @@
+# The URL the site will be built for
+base_url = "https://test.thelazyforger.com/jack/"
+
+title = "Jack's blog"
+description = "A blog about lorem ipsum dolor sit amet"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+# The default language; used in feeds.
+default_language = "en"
+
+generate_feed = true
+
+taxonomies = [
+  { name = "tags" }
+]
+
+[extra]
+# User settings
+username = "Giacomo Pantalone"
+user_description = "Code, Sculpting, Game Design, and everything inbetween"
+user_title = "Coding Creative"
+email = "anon@anon.com"
+github_username =  "thelazyone"
+
+# For the blog
+accent = "#05a081"
+accent_light = "#82d0c0"
+nav = [
+  { name = "About", path = "/about/" },
+  { name = "Blog", path = "/blog/" }
+]
+
+latest_text = "Check out my latest post:"
+
+icon = "img/icon.png"
+profile_small = "img/icon.png"
+profile_large = "profile.jpg"
+
+# Google-analytics
+google_analytics.id = ""
