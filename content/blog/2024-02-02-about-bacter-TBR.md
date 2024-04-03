@@ -1,5 +1,5 @@
 +++
-title = "About Bacter"
+title = "About Bacter TBR"
 authors = ["Jack"]
 draft = false
 [taxonomies]
