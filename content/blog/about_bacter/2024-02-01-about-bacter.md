@@ -1,7 +1,7 @@
 +++
 title = "About Bacter"
 authors = ["Jack"]
-draft = false
+draft = true
 [taxonomies]
 tags = [ "coding", "simulation", "rust", "web" ] 
 +++
