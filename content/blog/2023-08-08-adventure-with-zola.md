@@ -1,5 +1,6 @@
 +++
 title = "An Adventure with Zola"
+slug = "adventure-with-zola"
 authors = ["Jack"]
 draft = false
 [taxonomies]
