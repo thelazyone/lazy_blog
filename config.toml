@@ -1,6 +1,5 @@
 # The URL the site will be built for
-base_url = "https://thelazyone.github.io/lazy_blog/"
-
+base_url = "https://thelazyone.github.io/lazy_blog"
 
 theme = "bacter-particle-zola"
 
