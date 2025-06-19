@@ -100,4 +100,14 @@ And some other random texture. I included the tweet as well, because why not.
 
 All the cases above are OpenGL, but the difference is more than noticeable. Even more, flipping the image and running a diff between the two should make it a lot more evident.
 
+## A Little Rant
+
+It's worth adding a small note about how frustrating social media can be sometimes: I replied relatively soon to the original post from Andrew Price, but at that time there were already 120 messages before mine. Not matter how much I tried, he never saw my post.
+
+This is frustrating for me, because I had something cool (simple, but cool) to show, and nobody would listen. But it's frustrating for anyone asking for help as well - they will likely never read the answer that someone might have.
+
+To add to the frustration, Blendere Meme soon shared the OP on Facebook. Same process, same level of visibility, near zero.
+
+![](normal_maps_meme.jpg)
+
 So… what now? Of course to automate this there’s several steps to follow, but until someone with a proper use case finds this post, I’d say I’m gonna let it rest, waiting for a better day.
