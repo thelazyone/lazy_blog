@@ -32,6 +32,13 @@ user_description = "Code, Sculpting, Game Design, and everything inbetween."
 user_title = "Coding Creative"
 github_username =  "thelazyone"
 
+# Social media URLs
+facebook_url = ""
+github_url = "https://github.com/thelazyone"
+twitter_url = "https://x.com/thelazyforger"
+bluesky_url = "https://bsky.app/profile/thelazyforger.bsky.social"
+linkedin_url = "https://www.linkedin.com/in/giacomo-pantalone-35250293"
+
 # For the blog
 accent = "#05a081"
 accent_light = "#82d0c0"
