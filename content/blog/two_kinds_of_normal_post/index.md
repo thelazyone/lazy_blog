@@ -48,6 +48,8 @@ It all started a while ago, when Andrew Price (an internet personality, founder 
 
 ![I mean, he's not wrong!](andrew_rant.png)
 
+*[(Link to the original tweet)](https://x.com/andrewpprice/status/1935392761630327002)*
+
 As of now there are about 200 comments between here and on some reposted links, and everyone is either saying “it can’t be done with math”, or “just use your eyes”, or “just use AI”.
 
 And indeed expert people **COULD** spot it right away with their eyes, but not for the right reason: While often true, Deciding based on the assumption that in most OpenGL solutions “the light comes from the top” is just not a good criterion, because if the same texture was representing craters instead of rocks, the light (which is indeed just the area where the RG component is closer to 1,1) would be on the bottom. 
@@ -147,6 +149,8 @@ So… what now? Of course to automate this there’s several steps to follow, bu
 Turns out sending multiple messages works against the Algo - Some people started tagging the OP as well, and a reply arrived.
 
 ![](andrew_noticed.png)
+
+*[(Link to the original tweet)](https://x.com/andrewpprice/status/1935734013387473248)*
 
 I have found a new hope for humanity, and possibly some more fun challenges ahead!
 
