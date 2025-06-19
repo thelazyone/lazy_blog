@@ -14,7 +14,7 @@ Within the limits of a non-perfect solution, I kind of did.
 
 ## What’s a Normal Map?
 
-let’s start with the basics, in a very simple way.
+Let’s start with the basics, in a very simple way.
 
 Among the render information you want to have on an object in a 3D space, there’s a nice way to add more details on a mesh by defining arbitrarily, for each point, a certain direction the surface is pointing at. This means that there is more information for environmental lighting to reflect and bounce off, and that alone makes normal maps possibly the most important source of information you can give to a mesh, after its colours.
 
@@ -24,7 +24,7 @@ In a practical sense, the normal map is just another texture, which stores for e
 
 *[(Link to the original tweet)](https://x.com/orb_3d/status/1931120894048358781)*
 
-A great example of this comes from Michael Vincente - you can see each pixel’s behaviour with a moving light. It works just the same of a UV Map, it’s just a bit easier to follow with the eyes. :)
+A great example of this comes from Michael Vincente - you can see each pixel’s behaviour with a moving light. It works just the same of a UV Map; it’s just a bit easier to follow with the eyes.
 
 When the surface is flat, the pixel is of a light blue (128, 128, 255). If a detail is pointing on the right you get an orange-red hue, and so forth. A bulge on a flat surface will have an halo of colors, shifting from red to blue, to green to yellow... Or does it?
 
@@ -32,15 +32,15 @@ When the surface is flat, the pixel is of a light blue (128, 128, 255). If a det
 
 Turns out not. Depending on whether the normal map was made for OpenGL or DirectX, the value of the Y gets inverted.
 
-Now, apparently the two shaders went for  equally valid ways of declaring the coordinates of space. In fact, keeping the three coordinates orthogonal there’s **only two** ways to define the space. Because of our funny primate hands, we’re calling these coordinate systems as right-handed and left-handed.
+Now, apparently the two shaders went for  equally valid ways of declaring the coordinates of space. In fact, keeping the three coordinates orthogonal there’s **only two** ways to define the space. Because of our funny primate hands, we’re calling these coordinate systems right-handed and left-handed.
 
 ![I just love this.](freya_right_hand.png)
 
 *Credits to [FreyaHolmer](https://x.com/FreyaHolmer) for the chart*
 
-Doesn’t matter how much you try, but as long as you rotate or translate a left hand you’ll never end up with a right hand (it’s ok, you can try) - the only way to get there is to **mirror** the hand, or the space around it.
+No matter how much you try, but as long as you rotate or translate a left hand you’ll never end up with a right hand (it’s ok, you can try) - the only way to get there is to **mirror** the hand, or the space around it.
 
-This dualism under which you can order objects in a way that is consistent for rotations and translations but not symmetry is called Chirality, and is a big deal in many fields, from Particle Physics to Chemistry. Some simple compounds could be having a nice smell in one of the two configurations, or the effects can be far more dramatic, [such as the case of the Thalidomide](https://en.wikipedia.org/wiki/Thalidomide).
+This dualism, under which you can order objects in a way that is consistent for rotations and translations but not symmetry is called Chirality, and is a big deal in many fields, from Particle Physics to Chemistry. Some simple compounds could have a nice smell in one of the two configurations, or the effects can be far more dramatic, [such as in the case of Thalidomide](https://en.wikipedia.org/wiki/Thalidomide).
 
 ## The Real-world Problem
 
@@ -52,7 +52,7 @@ It all started a while ago, when Andrew Price (an internet personality, founder 
 
 As of now there are about 200 comments between here and on some reposted links, and everyone is either saying “it can’t be done with math”, or “just use your eyes”, or “just use AI”.
 
-And indeed expert people **COULD** spot it right away with their eyes, but not for the right reason: While often true, Deciding based on the assumption that in most OpenGL solutions “the light comes from the top” is just not a good criterion, because if the same texture was representing craters instead of rocks, the light (which is indeed just the area where the RG component is closer to 1,1) would be on the bottom. 
+And indeed expert people **COULD** spot it right away with their eyes, but not for the right reason: While often true, deciding based on the assumption that in most OpenGL solutions “the light comes from the top” is just not a good criterion, because if the same texture was representing craters instead of rocks, the light (which is indeed just the area where the RG component is closer to 1,1) would be on the bottom. 
 
 Simply rotate the normal map of the OpenGL version 180°, and you end up with holes where the rocks are: The two maps look now very similar, yet one is for DirectX, one for OpenGL:
 
@@ -71,13 +71,15 @@ That’s where Chirality comes into play, as long as you follow the edge of any 
 
 Interestingly, this is true BOTH for holes and for bumps.
 
-A layman solution would be to follow the borders of such areas, and check which colour follows “purple” - but it’s such a complex task that I wouldn’t really want to touch it with a three-foot poles.
+A layman solution would be to follow the borders of such areas, and check which colour follows “purple” - but it’s such a complex task that I wouldn’t really want to touch it with a three-foot pole.
 
 What about a whole bunch of generic loops? What gives us any certainty that it would go right? It actually might, but again, it’s dirty.
 
-Luckily, Math can come to our help. Just like Gradients act as a local differential of an image with itself - or in simpler terms “every point is the difference between the point and the surrounding ones” - we can calculate the gradients around any loop, including infinitesimally small ones.  ([That is a Curl, or Rotor.](https://en.wikipedia.org/wiki/Curl_(mathematics)) )
+Luckily, math can come to our rescue. 
 
-Now, aside from the magic math, Curls can be derived by the partial gradients, and the formula is fairly simple:
+Just like Gradients act as a local differential of an image with itself - or in simpler terms “every point is the difference between the point and the surrounding ones” - we can calculate the sum of the values of a field around any loop, including infinitesimally small ones ([and that is a Curl, or Rotor.](https://en.wikipedia.org/wiki/Curl_(mathematics))).
+
+Now, aside from the magical aspect of math, curls can be derived from the partial gradients, and the formula is fairly simple:
 
 **curl F = ∂Q/∂x - ∂P/∂y**
 
@@ -92,11 +94,13 @@ Implementing it via code is even simpler.
 
 The script… simply worked right away. 
 
-The main point to see is that the cursor has a deeply different behaviour in one case and the other (left), and inverting the y (therefore switching the sign in the cursor formula) the behaviour is swapped neatly. Aside from the technicalities behind, we have what we want: A way to discriminate which kind of normal this is! 
+The main point to see is that the curl has a markedly different behaviour in one case and the other (left), and inverting the y (therefore switching the sign in the cursor formula) the behaviour is swapped neatly. 
+
+Aside from the technical details, we have what we want: A way to discriminate which kind of normal this is! 
 
 ![](result_1.png)
 
-Knowing that the left normal map is OpenGL and the right one is Direct X, we will expect GL maps to have a heavier result with the normal Curl, and a lighter value with the inverted Curl, like the one below:
+Knowing that the left normal map is OpenGL and the right one is DirectX, we will expect GL maps to have a heavier result with the normal Curl, and a lighter value with the inverted Curl, like the one below:
 
 ![](result_2.png)
 
@@ -134,11 +138,11 @@ Needless to say, if that is the case the solution to the whole problem is howeve
 
 ## A Little Rant
 
-It's worth adding a small note about how frustrating social media can be sometimes: I replied relatively soon to the original post from Andrew Price, but at that time there were already 120 messages before mine. Not matter how much I tried, he never saw my post.
+It's worth adding a small note about how frustrating social media can be sometimes: I replied relatively soon to the original post from Andrew Price, but at that time there were already 120 messages before mine. No matter how much I tried, he never saw my post.
 
 This is frustrating for me, because I had something cool (simple, but cool) to show, and nobody would listen. But it's frustrating for anyone asking for help as well - they will likely never read the answer that someone might have.
 
-To add to the frustration, Blendere Meme soon shared the OP on Facebook. Same process, same level of visibility, near zero.
+To add to the frustration, Blender Meme soon shared the OP on Facebook. Same process, same level of visibility, near zero.
 
 ![](normal_maps_meme.jpg)
 
