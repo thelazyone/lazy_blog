@@ -2,6 +2,7 @@
 title = "Two Kinds of Normal"
 authors = ["Jack"]
 date = 2025-06-19
+slug = "two_kinds_of_normal"
 [taxonomies]
 tags = [ "coding", "3D", "Graphics" ] 
 +++
@@ -19,7 +20,7 @@ Among the information you want to have on an object in a 3D space, there’s a n
 
 The Normal map stores, for each pixel of the texture, its direction on X Y Z in the R G B channels: each channel is converted from [0.0, 255.0] into [-1.0, 1.0], but that’s pretty much it!
 
-![A normal map example from Michael Vicente showing how surface normals affect lighting](/blog/two_kinds_of_normal/vincente_orb_normal.png)
+![A normal map example from Michael Vicente showing how surface normals affect lighting](vincente_orb_normal.png)
 
 *[(Link to the original tweet)](https://x.com/orb_3d/status/1931120894048358781)*
 
@@ -29,7 +30,7 @@ A great example of this comes from Michael Vincente - you can see each pixel’s
 
 Now, apparently DirectX and OpenGL went for two equally valid ways of declaring the coordinates of space. In fact, keeping the three coordinates orthogonal there’s **only two** ways to define the space. Because of our funny primate hands, we’re calling these coordinate systems as right-handed and left-handed.
 
-![I just love this.](/blog/two_kinds_of_normal/freya_right_hand.png)
+![I just love this.](freya_right_hand.png)
 
 *Credits to [FreyaHolmer](https://x.com/FreyaHolmer) for the chart*
 
@@ -41,7 +42,7 @@ This dualism under which you can order objects in a way that is consistent for r
 
 It all started a while ago, when Andrew Price (an internet personality who runs Blenderguru, among other things: [https://www.youtube.com/@blenderguru](https://www.youtube.com/@blenderguru)) put out an interesting challenge-slash-rant: nobody seemed to have an easy way to discern the left-handed and the right-handed normal maps!
 
-![I mean, he's not wrong!](/blog/two_kinds_of_normal/andrew_rant.png)
+![I mean, he's not wrong!](andrew_rant.png)
 
 As of now there are about 200 comments between here and on some reposted links, and everyone is either saying “it can’t be done with math”, or “just use your eyes”, or “just use AI”.
 
@@ -49,7 +50,7 @@ And indeed expert people **COULD** spot it right away with their eyes, but not f
 
 Simply rotate the normal map of the OpenGL version 180°, and you end up with holes where the rocks are, and you’re still seeing two different maps entirely:
 
-![Good luck eyeballing this.](/blog/two_kinds_of_normal/rotated_normal.png)
+![Good luck eyeballing this.](rotated_normal.png)
 
 *Good luck eyeballing this.*
 
@@ -83,19 +84,19 @@ Implementing it via code is even simpler.
 
 The script… simply worked right away. The main point to see is that the cursor has a deeply different behaviour in one case and the other (left), and inverting the y (therefore switching the sign in the cursor formula) the behaviour is swapped neatly. Aside from the technicalities behind, we have what we want: A way to discriminate which kind of normal this is! 
 
-![](/blog/two_kinds_of_normal/result_1.png)
+![](result_1.png)
 
 Knowing that the left normal map is OpenGL and the right one is Direct X, we will expect GL maps to have a heavier result with the normal Curl, and a lighter value with the inverted Curl, like the one below:
 
-![](/blog/two_kinds_of_normal/result_2.png)
+![](result_2.png)
 
 With the help of [Joe Wilson](https://x.com/JoeWilsonEQ1) I put the logic under stress - starting with [the Cube of Hell](https://x.com/JoeWilsonEQ1/status/1935456296225972477):
 
-![](/blog/two_kinds_of_normal/result_3.png)
+![](result_3.png)
 
 And some other random texture. I included the tweet as well, because why not.
 
-![](/blog/two_kinds_of_normal/result_4.png)
+![](result_4.png)
 
 All the cases above are OpenGL, but the difference is more than noticeable. Even more, flipping the image and running a diff between the two should make it a lot more evident.
 
