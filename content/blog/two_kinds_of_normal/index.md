@@ -17,7 +17,7 @@ Apparently the world of 3D graphics is split in two: right-handed and left-hande
 
 Within the limits of a non-perfect solution, I kind of did.
 
-## What’s a Normal Map?
+# What’s a Normal Map?
 
 Let’s start with the basics, in a very simple way.
 
@@ -33,7 +33,7 @@ A great example of this comes from Michael Vincente - you can see each pixel’s
 
 When the surface is flat, the pixel is of a light blue (128, 128, 255). If a detail is pointing on the right you get an orange-red hue, and so forth. A bulge on a flat surface will have an halo of colors, shifting from red to blue, to green to yellow... Or does it?
 
-## About Chirality
+# About Chirality
 
 Turns out not. Depending on whether the normal map was made for OpenGL or DirectX, the value of the Y gets inverted.
 
@@ -47,7 +47,7 @@ No matter how much you try, but as long as you rotate or translate a left hand y
 
 This dualism, under which you can order objects in a way that is consistent for rotations and translations but not symmetry is called Chirality, and is a big deal in many fields, from Particle Physics to Chemistry. Some simple compounds could have a nice smell in one of the two configurations, or the effects can be far more dramatic, [such as in the case of Thalidomide](https://en.wikipedia.org/wiki/Thalidomide).
 
-## The Real-world Problem
+# The Real-world Problem
 
 It all started a while ago, when Andrew Price (an internet personality, founder of [Blenderguru](https://www.youtube.com/@blenderguru), among other things) put out an interesting challenge-slash-rant: nobody seemed to have an easy way to discern the left-handed and the right-handed normal maps!
 
@@ -67,7 +67,7 @@ Simply rotate the normal map of the OpenGL version 180°, and you end up with ho
 
 The easy way to solve it is gone - if a solution must work for all kinds of textures (or for the vast majority of them), it should easily handle this case. 
 
-## Closed Loops and Curls
+# Closed Loops and Curls
 
 That’s where Chirality comes into play, as long as you follow the edge of any change in elevation, clockwise:
 
@@ -95,7 +95,7 @@ Now, aside from the magical aspect of math, curls can be derived from the gradie
 
 Implementing it via code is even simpler.
 
-## Results
+# Results
 
 The script… simply worked right away. 
 
@@ -119,11 +119,11 @@ And some other random texture. I included the tweet as well, because why not.
 
 All the cases above are OpenGL, but the difference is more than noticeable. Even more, flipping the image and running a diff between the two should make it a lot more evident.
 
-## Limits and Developments
+# Limits and Developments
 
 There is a LOT of improvements that can be done on the processing to better differenciate the two families of normal maps, and here I will mention a few.
 
-### Resolution
+## Resolution
 
 The problem of Curls is that they are local: no information outside of the surrounding pixels is kept in the logic, and this is a limiting factor when working with arbitrary normal maps.
 
@@ -131,17 +131,17 @@ I personally downscaled all the maps to 320 pixels, so that each curl would inde
 
 This is not how Curls should be used in real life, but it could definitely allow for a "multimodal" approach for a smarter recognition of the normal differences.
 
-### Dual Difference
+## Dual Difference
 
 The whole setup is inherently symmetrical: since the normal map itself is just flipped along Y, you can analyze a normal map against itself flipped, and apply the rotor once on both (rather than both rotors). It's an obvious statement, but it's still worth pointing out.
 
-### Limit Cases
+## Limit Cases
 
 The core assumption of this solution is that saddles (flat areas whose surrounding are partially protruding and partially recessing) are FAR more rare than bumps and holes. This is not true for certain kind of patterns (chainmails) and for random noise. In such cases there's not much to do, other than hoping that there is a displacement/relief map available as well.
 
 Needless to say, if that is the case the solution to the whole problem is however trivial, so any implementation should probably look for the relief map beforehand, and perform a much quicker check on the two, falling back to the present solution otherwise.
 
-## A Little Rant
+# A Little Rant
 
 It's worth adding a small note about how frustrating social media can be sometimes: I replied relatively soon to the original post from Andrew Price, but at that time there were already 120 messages before mine. No matter how much I tried, he never saw my post.
 
@@ -153,7 +153,7 @@ To add to the frustration, Blender Meme soon shared the OP on Facebook. Same pro
 
 So… what now? Of course to automate this there’s several steps to follow, but until someone with a proper use case finds this post, I’d say I’m gonna let it rest, waiting for a better day.
 
-### EDIT: A few hours later
+## EDIT: A Few Hours Later
 
 Turns out sending multiple messages works against the Algo - Some people started tagging the OP as well, and a reply arrived.
 
