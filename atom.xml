@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jack&#x27;s blog</title>
+    <subtitle>Just a Website</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://thelazyone.github.io/lazy_blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://thelazyone.github.io/lazy_blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-06-19T00:00:00+00:00</updated>
+    <id>https://thelazyone.github.io/lazy_blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Two Kinds of Normal</title>
+        <published>2025-06-19T00:00:00+00:00</published>
+        <updated>2025-06-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Jack
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://thelazyone.github.io/lazy_blog/blog/two-kinds-of-normal/"/>
+        <id>https://thelazyone.github.io/lazy_blog/blog/two-kinds-of-normal/</id>
+        
+        <content type="html" xml:base="https://thelazyone.github.io/lazy_blog/blog/two-kinds-of-normal/">&lt;p&gt;Apparently the world of 3D graphics is split in two: right-handed and left-handed normal maps. And it really looks like people can’t find an easy way to discern which is which. &lt;&#x2F;p&gt;
+&lt;p&gt;Within the limits of a non-perfect solution, I kind of did.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;what-s-a-normal-map&quot;&gt;What’s a Normal Map?&lt;&#x2F;h1&gt;
+&lt;p&gt;Let’s start with the basics, in a very simple way.&lt;&#x2F;p&gt;
+&lt;p&gt;Among the render information you want to have on an object in a 3D space, there’s a nice way to add more details on a mesh by defining arbitrarily, for each point, a certain direction the surface is pointing at. This means that there is more information for environmental lighting to reflect and bounce off, and that alone makes normal maps possibly the most important source of information you can give to a mesh, after its colours.&lt;&#x2F;p&gt;
+&lt;p&gt;In a practical sense, the normal map is just another texture, which stores for each pixel its direction on X Y Z, translated in the R G B channels: each channel is converted from [0.0, 255.0] into [-1.0, 1.0]. &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;vincente_orb_normal.png&quot; alt=&quot;A normal map example from Michael Vicente showing how surface normals affect lighting&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;orb_3d&#x2F;status&#x2F;1931120894048358781&quot;&gt;(Link to the original tweet)&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;A great example of this comes from Michael Vincente - you can see each pixel’s behaviour with a moving light. It works just the same of a UV Map; it’s just a bit easier to follow with the eyes.&lt;&#x2F;p&gt;
+&lt;p&gt;When the surface is flat, the pixel is of a light blue (128, 128, 255). If a detail is pointing on the right you get an orange-red hue, and so forth. A bulge on a flat surface will have an halo of colors, shifting from red to blue, to green to yellow... Or does it?&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;about-chirality&quot;&gt;About Chirality&lt;&#x2F;h1&gt;
+&lt;p&gt;Turns out not. Depending on whether the normal map was made for OpenGL or DirectX, the value of the Y gets inverted.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, apparently the two shaders went for  equally valid ways of declaring the coordinates of space. In fact, keeping the three coordinates orthogonal there’s &lt;strong&gt;only two&lt;&#x2F;strong&gt; ways to define the space. Because of our funny primate hands, we’re calling these coordinate systems right-handed and left-handed.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;freya_right_hand.png&quot; alt=&quot;I just love this.&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Credits to &lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;FreyaHolmer&quot;&gt;FreyaHolmer&lt;&#x2F;a&gt; for the chart&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;No matter how much you try, but as long as you rotate or translate a left hand you’ll never end up with a right hand (it’s ok, you can try) - the only way to get there is to &lt;strong&gt;mirror&lt;&#x2F;strong&gt; the hand, or the space around it.&lt;&#x2F;p&gt;
+&lt;p&gt;This dualism, under which you can order objects in a way that is consistent for rotations and translations but not symmetry is called Chirality, and is a big deal in many fields, from Particle Physics to Chemistry. Some simple compounds could have a nice smell in one of the two configurations, or the effects can be far more dramatic, &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Thalidomide&quot;&gt;such as in the case of Thalidomide&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;the-real-world-problem&quot;&gt;The Real-world Problem&lt;&#x2F;h1&gt;
+&lt;p&gt;It all started a while ago, when Andrew Price (an internet personality, founder of &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;@blenderguru&quot;&gt;Blenderguru&lt;&#x2F;a&gt;, among other things) put out an interesting challenge-slash-rant: nobody seemed to have an easy way to discern the left-handed and the right-handed normal maps!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;andrew_rant.png&quot; alt=&quot;I mean, he&#x27;s not wrong!&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;andrewpprice&#x2F;status&#x2F;1935392761630327002&quot;&gt;(Link to the original tweet)&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;As of now there are about 200 comments between here and on some reposted links, and everyone is either saying “it can’t be done with math”, or “just use your eyes”, or “just use AI”.&lt;&#x2F;p&gt;
+&lt;p&gt;And indeed expert people &lt;strong&gt;COULD&lt;&#x2F;strong&gt; spot it right away with their eyes, but not for the right reason: While often true, deciding based on the assumption that in most OpenGL solutions “the light comes from the top” is just not a good criterion, because if the same texture was representing craters instead of rocks, the light (which is indeed just the area where the RG component is closer to 1,1) would be on the bottom. &lt;&#x2F;p&gt;
+&lt;p&gt;Simply rotate the normal map of the OpenGL version 180°, and you end up with holes where the rocks are: The two maps look now very similar, yet one is for DirectX, one for OpenGL:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;rotated_normal.png&quot; alt=&quot;Good luck eyeballing this.&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Good luck eyeballing this.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The easy way to solve it is gone - if a solution must work for all kinds of textures (or for the vast majority of them), it should easily handle this case. &lt;&#x2F;p&gt;
+&lt;h1 id=&quot;closed-loops-and-curls&quot;&gt;Closed Loops and Curls&lt;&#x2F;h1&gt;
+&lt;p&gt;That’s where Chirality comes into play, as long as you follow the edge of any change in elevation, clockwise:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;On the left side: purple → blue → green → white&lt;&#x2F;li&gt;
+&lt;li&gt;On the right side: purple → white → green → blue&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Interestingly, this is true BOTH for holes and for bumps.&lt;&#x2F;p&gt;
+&lt;p&gt;A layman solution would be to follow the borders of such areas, and check which colour follows “purple” - but it’s such a complex task that I wouldn’t really want to touch it with a three-foot pole.&lt;&#x2F;p&gt;
+&lt;p&gt;What about a whole bunch of generic loops? What gives us any certainty that it would go right? It actually might, but again, it’s dirty.&lt;&#x2F;p&gt;
+&lt;p&gt;Luckily, math can come to our rescue. &lt;&#x2F;p&gt;
+&lt;p&gt;Just like Gradients act as a local differential of an image with itself - or in simpler terms “every point is the difference between the point and the surrounding ones” - we can calculate the sum of the values of a field around any loop, including infinitesimally small ones (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Curl_(mathematics)&quot;&gt;and that is a Curl, or Rotor.&lt;&#x2F;a&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;Now, aside from the magical aspect of math, curls can be derived from the gradients, and the formula is fairly simple:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;curl F = ∂Q&#x2F;∂x - ∂P&#x2F;∂y&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Where:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;P and Q are the components of the vector field F in the x and y directions, respectively.&lt;&#x2F;li&gt;
+&lt;li&gt;∂Q&#x2F;∂x represents the partial derivative of Q with respect to x.&lt;&#x2F;li&gt;
+&lt;li&gt;∂P&#x2F;∂y represents the partial derivative of P with respect to y.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Implementing it via code is even simpler.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;results&quot;&gt;Results&lt;&#x2F;h1&gt;
+&lt;p&gt;The script… simply worked right away. &lt;&#x2F;p&gt;
+&lt;p&gt;The main point to see is that the curl has a markedly different behaviour in one case and the other (left), and inverting the y (therefore switching the sign in the cursor formula) the behaviour is swapped neatly. &lt;&#x2F;p&gt;
+&lt;p&gt;Aside from the technical details, we have what we want: A way to discriminate which kind of normal this is! &lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;result_1.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Knowing that the left normal map is OpenGL and the right one is DirectX, we will expect GL maps to have a heavier result with the normal Curl, and a lighter value with the inverted Curl, like the one below:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;result_2.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;With the help of &lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;JoeWilsonEQ1&quot;&gt;Joe Wilson&lt;&#x2F;a&gt; I put the logic under stress - starting with &lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;JoeWilsonEQ1&#x2F;status&#x2F;1935456296225972477&quot;&gt;the Cube of Hell&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;result_3.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;And some other random texture. I included the tweet as well, because why not.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;result_4.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;All the cases above are OpenGL, but the difference is more than noticeable. Even more, flipping the image and running a diff between the two should make it a lot more evident.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;limits-and-developments&quot;&gt;Limits and Developments&lt;&#x2F;h1&gt;
+&lt;p&gt;There is a LOT of improvements that can be done on the processing to better differenciate the two families of normal maps, and here I will mention a few.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;resolution&quot;&gt;Resolution&lt;&#x2F;h2&gt;
+&lt;p&gt;The problem of Curls is that they are local: no information outside of the surrounding pixels is kept in the logic, and this is a limiting factor when working with arbitrary normal maps.&lt;&#x2F;p&gt;
+&lt;p&gt;I personally downscaled all the maps to 320 pixels, so that each curl would indeed interest an area roughly 3 times wider --- but changing the resolution is possible to spot different curl values at different scales. &lt;&#x2F;p&gt;
+&lt;p&gt;This is not how Curls should be used in real life, but it could definitely allow for a &amp;quot;multimodal&amp;quot; approach for a smarter recognition of the normal differences.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dual-difference&quot;&gt;Dual Difference&lt;&#x2F;h2&gt;
+&lt;p&gt;The whole setup is inherently symmetrical: since the normal map itself is just flipped along Y, you can analyze a normal map against itself flipped, and apply the rotor once on both (rather than both rotors). It&#x27;s an obvious statement, but it&#x27;s still worth pointing out.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;limit-cases&quot;&gt;Limit Cases&lt;&#x2F;h2&gt;
+&lt;p&gt;The core assumption of this solution is that saddles (flat areas whose surrounding are partially protruding and partially recessing) are FAR more rare than bumps and holes. This is not true for certain kind of patterns (chainmails) and for random noise. In such cases there&#x27;s not much to do, other than hoping that there is a displacement&#x2F;relief map available as well.&lt;&#x2F;p&gt;
+&lt;p&gt;Needless to say, if that is the case the solution to the whole problem is however trivial, so any implementation should probably look for the relief map beforehand, and perform a much quicker check on the two, falling back to the present solution otherwise.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;a-little-rant&quot;&gt;A Little Rant&lt;&#x2F;h1&gt;
+&lt;p&gt;It&#x27;s worth adding a small note about how frustrating social media can be sometimes: I replied relatively soon to the original post from Andrew Price, but at that time there were already 120 messages before mine. No matter how much I tried, he never saw my post.&lt;&#x2F;p&gt;
+&lt;p&gt;This is frustrating for me, because I had something cool (simple, but cool) to show, and nobody would listen. But it&#x27;s frustrating for anyone asking for help as well - they will likely never read the answer that someone might have.&lt;&#x2F;p&gt;
+&lt;p&gt;To add to the frustration, Blender Meme soon shared the OP on Facebook. Same process, same level of visibility, near zero.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;normal_maps_meme.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So… what now? Of course to automate this there’s several steps to follow, but until someone with a proper use case finds this post, I’d say I’m gonna let it rest, waiting for a better day.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;edit-a-few-hours-later&quot;&gt;EDIT: A Few Hours Later&lt;&#x2F;h2&gt;
+&lt;p&gt;Turns out sending multiple messages works against the Algo - Some people started tagging the OP as well, and a reply arrived.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;thelazyone.github.io&#x2F;lazy_blog&#x2F;blog&#x2F;two-kinds-of-normal&#x2F;andrew_noticed.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href=&quot;https:&#x2F;&#x2F;x.com&#x2F;andrewpprice&#x2F;status&#x2F;1935734013387473248&quot;&gt;(Link to the original tweet)&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I have found a new hope for humanity, and possibly some more fun challenges ahead!&lt;&#x2F;p&gt;
+&lt;p&gt;~Jack&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

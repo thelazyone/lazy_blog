@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://thelazyone.github.io/lazy_blog/sitemap.xml

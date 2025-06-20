@@ -1,0 +1,10 @@
+{
+  "name": "bacter_rust",
+  "version": "0.1.0",
+  "files": [
+    "bacter_rust_bg.wasm",
+    "bacter_rust.js"
+  ],
+  "module": "bacter_rust.js",
+  "sideEffects": false
+}
