@@ -3,8 +3,13 @@ title = "Two Kinds of Normal"
 authors = ["Jack"]
 date = 2025-06-19
 slug = "two_kinds_of_normal"
+
 [taxonomies]
 tags = [ "coding", "3D", "Graphics" ] 
+
+[extra]
+preview_image = "thumbnail.jpg"
+excerpt = "Turns out there is a way to figure out what a normal map is for."
 +++
 
 
