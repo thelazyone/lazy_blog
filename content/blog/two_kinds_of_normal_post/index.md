@@ -79,7 +79,7 @@ Luckily, math can come to our rescue.
 
 Just like Gradients act as a local differential of an image with itself - or in simpler terms “every point is the difference between the point and the surrounding ones” - we can calculate the sum of the values of a field around any loop, including infinitesimally small ones ([and that is a Curl, or Rotor.](https://en.wikipedia.org/wiki/Curl_(mathematics))).
 
-Now, aside from the magical aspect of math, curls can be derived from the partial gradients, and the formula is fairly simple:
+Now, aside from the magical aspect of math, curls can be derived from the gradients, and the formula is fairly simple:
 
 **curl F = ∂Q/∂x - ∂P/∂y**
 
